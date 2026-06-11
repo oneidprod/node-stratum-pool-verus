@@ -33,7 +33,7 @@
         "base58-native": "^0.1.4",
         "bignum": "^0.13.0",
         "bitgo-utxo-lib": "git+https://github.com/oneidprod/bitgo-utxo-lib.git",
-        "equihashverify": "git+https://github.com/s-nomp/equihashverify.git",
+        "equihashverify": "git+https://github.com/oneidprod/equihashverify.git",
         "verushash": "git+https://github.com/oneidprod/verushash-node.git",
         "merkle-bitcoin": "^1.0.2",
         "promise": "^8.0.1"
