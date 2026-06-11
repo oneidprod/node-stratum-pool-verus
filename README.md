@@ -1,6 +1,28 @@
 High performance Stratum poolserver for equihash in Node.js. One instance of this software can startup and manage multiple coin
 pools, each with their own daemon and stratum port :)
 
+## Verus / PBaaS Fork (oneidprod)
+
+This fork adds **Node.js 18 compatibility** and **PBaaS merge mining** support for Verus (VRSC).
+
+### Changes from upstream
+
+- **Node 18 support**: Updated C++ binding dependencies (`equihashverify`, `verushash-node`) to use the modern V8 API (`Local<>` instead of `Handle<>`, `.ToLocalChecked()`, isolate-aware string construction) and `-std=c++17`.
+- **PBaaS merge mining registrar** (`lib/pbaasRegistrar.js`): On each new VRSC block, fetches a block template from each configured PBaaS chain (vARRR, VDEX, CHIPS), assembles a minimal block hex, and calls `addmergedblock` on the VRSC daemon to register the chain for merge mining. Handles `nextblocktime` retries automatically.
+- **Docker support**: Runs cleanly under `node:18-bullseye` with Redis as a sidecar container.
+
+### PBaaS chain config (pool_configs/vrsc.json)
+
+```json
+"pbaasChains": [
+    { "name": "vARRR", "host": "...", "port": 20778, "user": "...", "password": "..." },
+    { "name": "VDEX",  "host": "...", "port": 21778, "user": "...", "password": "..." },
+    { "name": "CHIPS", "host": "...", "port": 22778, "user": "...", "password": "..." }
+]
+```
+
+---
+
 #### Notice
 This is a module for Node.js that will do nothing on its own. Unless you're a Node.js developer who would like to
 handle stratum authentication and raw share data then this module will not be of use to you. For a full featured portal
@@ -380,3 +402,16 @@ License
 Released under the GNU General Public License v2
 
 http://www.gnu.org/licenses/gpl-2.0.html
+
+## Donate
+
+If you find this useful, tips are appreciated:
+
+| Coin | Address |
+|-|-|
+| LTC | LWpuHQUGw3qZg8MCHYGgTPRZ3a1i8jc5u3 |
+| BTC | bc1qw0t40dunylgtz9kgfylwxac3a8vwp70cgrga5r |
+| SOL | up9YvW6ewNati5fmmDjGHzFbq8UkSbHPccoDNzijk3G |
+| POL | 0x5198f52fA768294ae66f0cB75A98DCc895a36F2E |
+| DOGE | DJAg2fTzS5vN3yXDPn5gGPz9JSmzJn3cXD |
+| VRSC | RXPo4WbNn6x494HL2MAHxD6eNvj6JqVKBU |
